@@ -7,7 +7,7 @@
     * **ostring** - name of collection
     * **int32** - number of beatmaps in the collection (*i*)
     * loop *i* times, reading the following:
-        *  **ostring** - name of beatmap
+        *  **ostring** - md5 hash of beatmap's .osu file
 
 ##spec
 * **int32**  
