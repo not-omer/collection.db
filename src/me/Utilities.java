@@ -1,4 +1,4 @@
-package me.collections;
+package me;
 
 import java.io.File;
 import java.io.FileInputStream;

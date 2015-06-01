@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import me.Utilities;
+
 public class Collections {
 	private File database;
 	private HashMap<String, ArrayList<String>> collections;
