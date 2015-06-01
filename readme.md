@@ -19,17 +19,17 @@
     * to get string length:  
 ```
 private int getStringLength() throws IOException {
-		int count = 0;
-		int shift = 0;
-		boolean more = true;
-		while (more) {
-			byte b = (byte) read();
-			count |= (b & 0x7F) << shift;
-			shift += 7;
-			if ((b & 0x80) == 0) {
-				more = false;
-			}
+	int count = 0;
+	int shift = 0;
+	boolean more = true;
+	while (more) {
+		byte b = (byte) read();
+		count |= (b & 0x7F) << shift;
+		shift += 7;
+		if ((b & 0x80) == 0) {
+			more = false;
 		}
-		return count;
 	}
+	return count;
+}
 ```
