@@ -2,37 +2,33 @@ package me;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map.Entry;
 
+import me.collections.Beatmap;
+import me.collections.Collection;
 import me.collections.Collections;
+import me.util.Beatmaps;
 
 public class Main {
-	public static void main(String[] args) throws IOException {
-		/**
-		 * store the hashes of every beatmap
-		 */
-		HashMap<String, String> hashes = new HashMap<String, String>();
-		File directory = new File(System.getenv("ProgramFiles") + " (x86)"
-				+ "\\osu!\\Songs\\");
-		for (File folder : directory.listFiles())
-			if (folder.isDirectory())
-				for (File file : folder.listFiles())
-					if (Utilities.getExtension(file).equals("osu"))
-						hashes.put(file.getName(), Utilities.md5(file));
+	private static File OSU_DIRECTORY = null;
 
-		/**
-		 * now get all the beatmap hashes from the collections and compare them
-		 */
+	static {
+		OSU_DIRECTORY = new File(System.getenv("ProgramFiles") + " (x86)"
+				+ "\\osu!\\Songs\\");
+	}
+
+	public static void main(String[] args) throws IOException {
 		Collections collections = new Collections(new File("collection.db"));
 		collections.parse();
-		HashMap<String, ArrayList<String>> map = collections.getCollections();
-		for (Entry<String, ArrayList<String>> entry : map.entrySet()) {
-			System.out.println("\nCollection: " + entry.getKey());
-			for (String hash : entry.getValue())
-				if (hashes.containsValue(hash))
-					System.out.println("\t" + Utilities.getKeyFromValue(hashes, hash));
+		Beatmaps maps = new Beatmaps();
+		maps.processBeatmapHashes(OSU_DIRECTORY);
+
+		for (Collection collection : collections.getCollections()) {
+			System.out.println(collection.getName());
+			for (Beatmap map : collection.getBeatmaps()) {
+				String hash = map.getHash();
+				System.out.println("\t" + maps.nameForHash(hash));
+				System.out.println("\t\tHash: " + hash);
+			}
 		}
 	}
 }
