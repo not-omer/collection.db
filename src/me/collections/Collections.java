@@ -24,14 +24,14 @@ public class Collections {
 		OsuBinaryReader in = new OsuBinaryReader(new FileInputStream(database));
 
 		in.getInt();
-		int num = in.getInt();
-		for (int i = 0; i < num; i++) {
-			ArrayList<Beatmap> beatmaps = new ArrayList<Beatmap>();
-			String key = in.getLine();
-			int num2 = in.getInt();
-			for (int j = 0; j < num2; j++)
-				beatmaps.add(new Beatmap(in.getLine()));
-			collections.add(new Collection(key, beatmaps));
+		int totalCollections = in.getInt();
+		for (int i = 0; i < totalCollections; i++) {
+			ArrayList<Beatmap> collection = new ArrayList<Beatmap>();
+			String collectionName = in.getLine();
+			int collectionCapacity = in.getInt();
+			for (int j = 0; j < collectionCapacity; j++)
+				collection.add(new Beatmap(in.getLine()));
+			collections.add(new Collection(collectionName, collection));
 		}
 
 		in.close();
