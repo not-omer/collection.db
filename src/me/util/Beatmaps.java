@@ -11,38 +11,38 @@ import java.util.HashMap;
  * @author Omer
  */
 public class Beatmaps {
-	private HashMap<String, String> hashes;
+  private HashMap<String, String> hashes;
 
-	public Beatmaps() {
-		hashes = new HashMap<String, String>();
-	}
+  public Beatmaps() {
+    hashes = new HashMap<String, String>();
+  }
 
-	/**
-	 * This needs to be invoked before calling {@link #nameForHash(String)}.
-	 * 
-	 * @param directory
-	 * @throws IOException
-	 */
-	public void processBeatmapHashes(File directory) throws IOException {
-		for (File folder : directory.listFiles())
-			if (folder.isDirectory())
-				for (File file : folder.listFiles())
-					if (Utilities.getExtension(file).equals("osu"))
-						hashes.put(file.getName(), Utilities.md5(file));
-	}
+  /**
+   * This needs to be invoked before calling {@link #nameForHash(String)}.
+   * 
+   * @param directory
+   * @throws IOException
+   */
+  public void processBeatmapHashes(File directory) throws IOException {
+    for (File folder : directory.listFiles())
+      if (folder.isDirectory())
+        for (File file : folder.listFiles())
+          if (Utilities.getExtension(file).equals("osu"))
+            hashes.put(file.getName(), Utilities.md5(file));
+  }
 
-	/**
-	 * Get the name of a beatmap by its MD5 hash. Must invoke
-	 * {@link #processBeatmapHashes(File)} before calling this method.
-	 * 
-	 * @param hash
-	 * @return
-	 */
-	public String nameForHash(String hash) {
-		return (String) Utilities.getKeyFromValue(hashes, hash);
-	}
+  /**
+   * Get the name of a beatmap by its MD5 hash. Must invoke
+   * {@link #processBeatmapHashes(File)} before calling this method.
+   * 
+   * @param hash
+   * @return
+   */
+  public String nameForHash(String hash) {
+    return (String) Utilities.getKeyFromValue(hashes, hash);
+  }
 
-	public HashMap<String, String> getHashes() {
-		return hashes;
-	}
+  public HashMap<String, String> getHashes() {
+    return hashes;
+  }
 }
