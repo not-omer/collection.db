@@ -84,16 +84,15 @@ public class OsuBinaryReader extends DataInputStream {
       byte b = (byte) read();
       count |= (b & 0x7F) << shift;
       shift += 7;
-      if ((b & 0x80) == 0) {
+      if ((b & 0x80) == 0)
         more = false;
-      }
     }
     return count;
   }
 
   private byte[] readBytes(int length) throws IOException {
     byte[] bytes = new byte[length];
-    this.read(bytes);
+    read(bytes);
     return bytes;
   }
 }
