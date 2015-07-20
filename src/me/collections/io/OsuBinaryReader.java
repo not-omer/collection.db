@@ -1,4 +1,4 @@
-package me.collections;
+package me.collections.io;
 
 import java.io.DataInputStream;
 import java.io.IOException;

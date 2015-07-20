@@ -1,17 +1,19 @@
-package me.collections;
+package me.collections.io;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import me.collections.Beatmap;
+import me.collections.Collection;
 import me.util.Utilities;
 
-public class Collections {
+public class CollectionReader {
   private File database;
   private ArrayList<Collection> collections;
 
-  public Collections(File database) {
+  public CollectionReader(File database) {
     if (Utilities.getExtension(database).equals("db"))
       this.database = database;
     collections = new ArrayList<Collection>();
@@ -35,6 +37,14 @@ public class Collections {
     }
 
     in.close();
+  }
+
+  public Collection getCollectionByName(String name) {
+    if (!collections.isEmpty())
+      for (Collection collection : collections)
+        if (collection.getName().equals(name))
+          return collection;
+    return null;
   }
 
   public ArrayList<Collection> getCollections() {

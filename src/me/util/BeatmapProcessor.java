@@ -10,15 +10,15 @@ import java.util.HashMap;
  * 
  * @author Omer
  */
-public class Beatmaps {
+public class BeatmapProcessor {
   private HashMap<String, String> hashes;
 
-  public Beatmaps() {
+  public BeatmapProcessor() {
     hashes = new HashMap<String, String>();
   }
 
   /**
-   * This needs to be invoked before calling {@link #nameForHash(String)}.
+   * This needs to be invoked before calling {@link #getNameByHash(String)}.
    * 
    * @param directory
    * @throws IOException
@@ -27,8 +27,10 @@ public class Beatmaps {
     for (File folder : directory.listFiles())
       if (folder.isDirectory())
         for (File file : folder.listFiles())
-          if (Utilities.getExtension(file).equals("osu"))
-            hashes.put(file.getName(), Utilities.md5(file));
+          if (Utilities.getExtension(file).equals("osu")) {
+            String name = file.getName();
+            hashes.put(name.substring(0, name.length() - 4), Utilities.md5(file));
+          }
   }
 
   /**
@@ -38,7 +40,7 @@ public class Beatmaps {
    * @param hash
    * @return
    */
-  public String nameForHash(String hash) {
+  public String getNameByHash(String hash) {
     return (String) Utilities.getKeyFromValue(hashes, hash);
   }
 
